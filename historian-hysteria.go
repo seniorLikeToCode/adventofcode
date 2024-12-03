@@ -17,6 +17,35 @@ func parseNumber(s string) []int {
 	return res
 }
 
+func problemA(A, B []int) {
+	N, answer := len(A), 0
+
+	for i := 0; i < N; i++ {
+		x := A[i] - B[i]
+		if x < 0 {
+			x *= -1
+		}
+		answer += x
+	}
+
+	fmt.Println(answer)
+}
+
+func problemB(A, B []int) {
+	N, answer := len(A), 0
+
+	mp := make(map[int]int)
+	for i := 0; i < N; i++ {
+		mp[B[i]]++
+	}
+
+	for i := 0; i < N; i++ {
+		answer += A[i] * mp[A[i]]
+	}
+
+	fmt.Println(answer)
+}
+
 func main() {
 	data, err := os.Open("input.txt")
 	if err != nil {
@@ -41,15 +70,6 @@ func main() {
 	sort.Ints(A)
 	sort.Ints(B)
 
-	answer := 0
-	for i := 0; i < len(A); i++ {
-		x := A[i] - B[i]
-		if x < 0 {
-			x *= -1
-		}
-
-		answer += x
-	}
-
-	fmt.Println(answer)
+	// problemA(A, B)
+	problemB(A, B)
 }
